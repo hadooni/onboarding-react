@@ -5,6 +5,7 @@ import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import MyPage from "../pages/MyPage";
 import Layout from "../components/Layout";
+import PrivateRoute from "./PrivateRoute";
 
 const Router = () => {
   return (
@@ -14,7 +15,14 @@ const Router = () => {
         <Route path={URLS.home} element={<MainPage />} />
         <Route path={URLS.signIn} element={<SignIn />} />
         <Route path={URLS.signUp} element={<SignUp />} />
-        <Route path={URLS.myPage} element={<MyPage />} />
+        <Route
+          path={URLS.myPage}
+          element={
+            <PrivateRoute>
+              <MyPage />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
