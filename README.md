@@ -1,9 +1,15 @@
 # 프론트엔드 개발 온보딩 과제 (React)
 
+### 배포링크
+
+https://onboarding-react-beta.vercel.app/
+
+<br />
+
 ### 브랜치
 
 - main: moneyfulpublicpolicy.co.kr 서버 사용 (테스트X)
-- json-server: json-server, json-server-auth 사용
+- json-server: json-server, json-server-auth 사용 (배포)
 
 <br />
 
