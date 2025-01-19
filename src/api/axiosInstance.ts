@@ -9,3 +9,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 export const baseInstance = axios.create({
   baseURL: API_URL,
 });
+
+export const jsonServerInstance = axios.create({
+  baseURL: "http://localhost:3000",
+});

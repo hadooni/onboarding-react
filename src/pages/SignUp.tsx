@@ -4,9 +4,10 @@ import SignUpInput from "../components/SignUpInput";
 import { useCreateUser } from "../hooks/mutations";
 import { useNavigate } from "react-router-dom";
 import { URLS } from "../constants/urls";
+import { EMAIL_REGEX, PASSWORD_REGEX } from "../constants/regularExpression";
 
 const SignUp = () => {
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
   const { mutate } = useCreateUser();
@@ -14,12 +15,22 @@ const SignUp = () => {
 
   const handleCreateUser = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!id.trim() || !password.trim() || !nickname.trim()) {
+    if (!email.trim() || !password.trim() || !nickname.trim()) {
       alert("회원가입 정보를 입력해주세요!");
       return;
     }
+    if (!EMAIL_REGEX.test(email)) {
+      alert("아이디를 이메일 형식으로 입력해주세요.");
+      return;
+    }
+    if (!PASSWORD_REGEX.test(password)) {
+      alert(
+        "비밀번호를 숫자, 영어, 특수문자를 포함한 8자 이상, 15자 이하로 입력해주세요."
+      );
+      return;
+    }
     mutate(
-      { id, password, nickname },
+      { email, password, nickname },
       {
         onSuccess: () => {
           alert("회원가입 성공!");
@@ -39,11 +50,11 @@ const SignUp = () => {
     >
       <h2 className="text-3xl">회원가입</h2>
       <SignUpInput
-        inputTitle="아이디"
+        inputTitle="이메일"
         type="text"
-        placeholder="아이디를 입력해주세요"
-        value={id}
-        setValue={setId}
+        placeholder="이메일을 입력해주세요"
+        value={email}
+        setValue={setEmail}
       />
       <SignUpInput
         inputTitle="비밀번호"

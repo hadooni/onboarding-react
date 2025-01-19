@@ -5,8 +5,8 @@ import useAuthStore from "../store/useAuthStore";
 
 export const useCreateUser = () => {
   return useMutation({
-    mutationFn: ({ id, password, nickname }: UserSignUpData) =>
-      signUpUser({ id, password, nickname }),
+    mutationFn: ({ email, password, nickname }: UserSignUpData) =>
+      signUpUser({ email, password, nickname }),
     onError: (error) => {
       console.error("회원가입 failed:", error);
     },
@@ -14,27 +14,35 @@ export const useCreateUser = () => {
 };
 
 export const useLogInUser = () => {
-  const { setAccessToken, setNickname, setIsLoggedIn } = useAuthStore();
+  const { setAccessToken, setNickname, setIsLoggedIn, setUserId } =
+    useAuthStore();
 
   return useMutation({
-    mutationFn: ({ id, password }: UserSignInData) =>
-      signInUser({ id, password }),
+    mutationFn: ({ email, password }: UserSignInData) =>
+      signInUser({ email, password }),
     onSuccess: (data) => {
       setAccessToken(data.accessToken);
-      setNickname(data.nickname);
+      setNickname(data.user.nickname);
+      setUserId(data.user.id);
       setIsLoggedIn(true);
     },
     onError: (error) => {
       console.error("Login failed:", error);
       setAccessToken(null);
       setIsLoggedIn(false);
+      setUserId(0);
     },
   });
 };
 
 export const useUpdateUser = () => {
   return useMutation({
-    mutationFn: ({ profileUrl, newNickname }: UpdateUserData) =>
-      updateUserProfile({ profileUrl, newNickname }),
+    mutationFn: ({
+      profileUrl,
+      newNickname,
+      userId,
+      accessToken,
+    }: UpdateUserData) =>
+      updateUserProfile({ profileUrl, newNickname, userId, accessToken }),
   });
 };

@@ -3,4 +3,5 @@ export const URLS = {
   signIn: "/sign-in",
   signUp: "/sign-up",
   myPage: "/mypage",
+  test: "/test",
 };

@@ -1,25 +1,31 @@
 export type UserSignUpData = {
-  id: string;
+  email: string;
   password: string;
   nickname: string;
 };
 
 export type SignUpResponse = {
-  message: string;
-  success: boolean;
+  accessToken: string;
+  user: {
+    id: number;
+    email: string;
+    nickname: string;
+    profileUrl: null;
+  };
 };
 
 export type UserSignInData = {
-  id: string;
+  email: string;
   password: string;
 };
 
 export type SignInResponse = {
   accessToken: string;
-  userId: string;
-  success: boolean;
-  avatar: string;
-  nickname: string;
+  user: {
+    id: number;
+    email: string;
+    nickname: string;
+  };
 };
 
 export type UserInfoData = {
@@ -32,6 +38,8 @@ export type UserInfoData = {
 export type UpdateUserData = {
   profileUrl: string;
   newNickname: string;
+  userId: number;
+  accessToken: string | null;
 };
 
 export type AuthStore = {
@@ -39,8 +47,10 @@ export type AuthStore = {
   avatar: string | null;
   nickname: string;
   isLoggedIn: boolean;
+  userId: number;
   setAccessToken: (token: string | null) => void;
   setAvatar: (avatar: string | null) => void;
   setNickname: (nickname: string) => void;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
+  setUserId: (isLoggedIn: number) => void;
 };

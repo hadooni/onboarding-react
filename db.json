@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "email": "hayoung@naver.com",
+      "password": "$2a$10$EAmb.uGymS6HXIAJl0It0.2vNRBc2B7FS0zA9s2bkRSeCMjNTz5Le",
+      "nickname": "감자",
+      "profileUrl": "blob:http://localhost:5173/3f69a394-9174-4a81-bc69-d911b08156cc",
+      "id": 1
+    },
+    {
+      "email": "hayoung@gmail.com",
+      "password": "$2a$10$IpummeGgwfwkhgtfvRp53.fYAje.GCkUxmO/SREZkVZF7ySn1Oi2e",
+      "nickname": "하뚱",
+      "profileUrl": null,
+      "id": 2
+    },
+    {
+      "email": "hayoung7259@gmail.com",
+      "password": "$2a$10$oQgrVHmiFU7QvAxVJ.bQ8.1hUntLRqRRMwU15JrEBrG5MvhJPKqkm",
+      "nickname": "ddd",
+      "profileUrl": null,
+      "id": 3
+    },
+    {
+      "email": "abc123@gmail.com",
+      "password": "$2a$10$kclHFibyshcC.ytIXjbgyOtQFyH2j8/f3n7OKywQ4iH/kYVIOoqTe",
+      "nickname": "test213",
+      "profileUrl": "blob:http://localhost:5173/a290ba69-5edf-4297-9355-d29249842ef5",
+      "id": 4
+    }
+  ]
+}

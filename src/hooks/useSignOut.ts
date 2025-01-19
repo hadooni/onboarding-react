@@ -4,12 +4,15 @@ import { URLS } from "../constants/urls";
 
 const useSignOut = () => {
   const navigate = useNavigate();
-  const { setAccessToken, setIsLoggedIn, setNickname } = useAuthStore();
+  const { setAccessToken, setIsLoggedIn, setNickname, setAvatar, setUserId } =
+    useAuthStore();
 
   const onSignOut = async () => {
     setAccessToken(null);
     setIsLoggedIn(false);
     setNickname("");
+    setAvatar(null);
+    setUserId(0);
 
     navigate(URLS.home);
   };

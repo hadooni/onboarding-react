@@ -5,15 +5,22 @@ import Avatar from "../components/Avatar";
 import Nickname from "../components/Nickname";
 
 const MyPage = () => {
-  const [newNickname, setNewNickname] = useState("");
-  const [profileUrl, setProfileUrl] = useState("");
-  const { nickname, avatar } = useAuthStore();
+  const { nickname, avatar, setAvatar, setNickname, userId, accessToken } =
+    useAuthStore();
+  const [newNickname, setNewNickname] = useState(nickname);
+  const [profileUrl, setProfileUrl] = useState(avatar || "/image/profile.jpg");
+  const [edited, setEdited] = useState(false);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { mutate } = useUpdateUser();
 
   const handleChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewNickname(e.target.value);
+  };
+
+  const handleNicknameEdit = () => {
+    setEdited(!edited);
   };
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,18 +33,25 @@ const MyPage = () => {
   };
 
   const handleUpdateUser = () => {
+    if (!newNickname.trim()) {
+      alert("닉네임을 입력해주세요!");
+      return;
+    }
     mutate(
-      { profileUrl, newNickname },
+      { profileUrl, newNickname, userId, accessToken },
       {
         onSuccess: () => {
           alert("프로필 정보가 변경되었습니다!");
+          setAvatar(profileUrl);
+          setNickname(newNickname);
+          setEdited(false);
         },
       }
     );
   };
 
   return (
-    <section className="flex flex-col items-center gap-8 justify-center mt-10">
+    <section className="flex flex-col items-center justify-center gap-8 mt-10">
       <Avatar
         avatar={avatar}
         onAvatarChange={handleFileInputChange}
@@ -47,11 +61,13 @@ const MyPage = () => {
       <Nickname
         newNickname={newNickname}
         onChangeNickname={handleChangeNickname}
+        edited={edited}
+        handleNicknameEdit={handleNicknameEdit}
         nickname={nickname}
       />
       <button
         onClick={handleUpdateUser}
-        className="bg-gray-200 font-bold px-4 py-2 rounded-3xl"
+        className="px-4 py-2 font-bold bg-gray-200 rounded-3xl"
       >
         수정 완료
       </button>

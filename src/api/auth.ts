@@ -3,32 +3,32 @@ import {
   UserSignUpData,
   UserSignInData,
   SignInResponse,
-  UserInfoData,
   UpdateUserData,
 } from "../types/auth";
-import { baseInstance } from "./axiosInstance";
+import { jsonServerInstance } from "./axiosInstance";
 
 export const signUpUser = async ({
-  id,
+  email,
   password,
   nickname,
 }: UserSignUpData): Promise<SignUpResponse> => {
-  const { data } = await baseInstance.post("/register", {
-    id,
+  const { data } = await jsonServerInstance.post("/register", {
+    email,
     password,
     nickname,
+    profileUrl: null,
   });
   return data;
 };
 
 export const signInUser = async ({
-  id,
+  email,
   password,
 }: UserSignInData): Promise<SignInResponse> => {
-  const { data } = await baseInstance.post(
+  const { data } = await jsonServerInstance.post(
     "/login",
     {
-      id,
+      email,
       password,
     },
     { params: { expiresIn: "10m" } }
@@ -36,28 +36,21 @@ export const signInUser = async ({
   return data;
 };
 
-export const getUserInfo = async (): Promise<UserInfoData> => {
-  const { data } = await baseInstance.get("/user", {
-    headers: {
-      Authorization: "Bearer AccessToken",
-    },
-  });
-  return data;
-};
-
 export const updateUserProfile = async ({
   profileUrl,
   newNickname,
+  userId,
+  accessToken,
 }: UpdateUserData) => {
-  await baseInstance.patch(
-    "/profile",
+  await jsonServerInstance.patch(
+    `/600/users/${userId}`,
     {
-      avatar: profileUrl,
+      profileUrl,
       nickname: newNickname,
     },
     {
       headers: {
-        Authorization: "Bearer AccessToken",
+        Authorization: `Bearer ${accessToken}`,
       },
     }
   );
